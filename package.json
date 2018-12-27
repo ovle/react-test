@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/runtime": "7.1.5",
     "@material-ui/core": "^1.4.2",
+    "connected-react-router": "^6.0.0",
     "history": "latest",
     "local-storage": "^1.4.2",
     "react": "^16.7.0",

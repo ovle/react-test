@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import {CORRECT_LOGIN, CORRECT_PASSWORD, ErrorMessages} from "../../utils/constants";
 import {userLogIn} from "../state/actions/actions";
 import connect from "react-redux/es/connect/connect";
-
+import { push } from 'connected-react-router'
 
 class LoginPage extends Component {
 
@@ -25,10 +25,6 @@ class LoginPage extends Component {
 
         if (isValidCredentials) {
             this.props.onLoginButtonClick();
-
-            //todo imperative routing seems to be the hack
-            // this.props.history.push("/profile");
-            // browserHistory.push('/registrationStep2')
         }
     };
 
@@ -68,6 +64,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLoginButtonClick: () => {
             dispatch(userLogIn());
+            dispatch(push('/profile'));
         }
     }
 };
