@@ -3,12 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {store} from "./configureStore";
 
-import { createStore } from 'redux'
-import appReducers from './app/state/reducers/index'
-
-
-const store = createStore(appReducers);
 
 ReactDOM.render(
     <App store={store}/>,

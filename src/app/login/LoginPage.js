@@ -1,39 +1,40 @@
 import React, {Component} from "react";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField/TextField";
-import {CORRECT_LOGIN, CORRECT_PASSWORD, ErrorMessages, USER_AUTHORIZED_KEY} from "../../utils/constants";
-import ls from "local-storage";
+import {CORRECT_LOGIN, CORRECT_PASSWORD, ErrorMessages} from "../../utils/constants";
+import {userLogIn} from "../state/actions/actions";
+import connect from "react-redux/es/connect/connect";
 
 
 class LoginPage extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             login: "",
             password: "",
-            isValidCredentials: true
+            hasCredentialsError: false
         };
     }
 
 
-    onLoginButtonClick = () => {
+    _onLoginButtonClick = () => {
         //todo api request...
         const isValidCredentials = this.state.login == CORRECT_LOGIN && this.state.password == CORRECT_PASSWORD;
-        this.setState({ isValidCredentials: isValidCredentials });
+        this.setState({ hasCredentialsError: !isValidCredentials });
 
         if (isValidCredentials) {
-            ls.set(USER_AUTHORIZED_KEY, true);
-            //todo use redux
+            this.props.onLoginButtonClick();
         }
     };
 
     onLoginChange = (event) => {
-        this.setState({ login: event.target.value, isValidCredentials: true });
+        this.setState({ login: event.target.value, hasCredentialsError: false });
     };
 
     onPasswordChange = (event) => {
-        this.setState({ password: event.target.value, isValidCredentials: true });
+        this.setState({ password: event.target.value, hasCredentialsError: false });
     };
 
     loginButtonEnabled = () => {
@@ -45,12 +46,26 @@ class LoginPage extends Component {
             <h2 className="form-signin-heading">Форма авторизации</h2>
             <TextField className="form-control" type="text" placeholder="Логин" value={this.state.login} onChange={this.onLoginChange}/>
             <TextField className="form-control" type="password" placeholder="Пароль" value={this.state.password} onChange={this.onPasswordChange}/>
-            { !this.state.isValidCredentials && <div>{ErrorMessages.LOGIN_FAILED}</div> }
+            { this.state.hasCredentialsError && <div>{ErrorMessages.LOGIN_FAILED}</div> }
 
-            <Button variant="raised" color="primary" onClick={this.onLoginButtonClick} disabled={ !this.loginButtonEnabled() }>
+            <Button variant="raised" color="primary" onClick={this._onLoginButtonClick} disabled={ !this.loginButtonEnabled() }>
                 Войти
             </Button>
         </div>
 }
 
-export default LoginPage;
+
+const mapStateToProps = (state) => { return { isLoggedIn: state.isLoggedIn }};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLoginButtonClick: () => {
+            dispatch(userLogIn());
+        }
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LoginPage);

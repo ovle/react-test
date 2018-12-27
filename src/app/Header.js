@@ -1,21 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
-import ls from "local-storage";
-import {USER_AUTHORIZED_KEY} from "../utils/constants";
+import {connect} from "react-redux";
+import {userLogOut} from "./state/actions/actions";
 
 
-function Header(props) {
-
-    const onLogoutButtonClick = () => {
-        //todo api request...
-
-        ls.set(USER_AUTHORIZED_KEY, false);
-        //todo use redux
-    };
-
-    const logoutButtonEnabled = () => ls.get(USER_AUTHORIZED_KEY) === true;
-
+function Header({isLoggedIn, onLogoutButtonClick}) {
     return (
         <nav>
             <Link to="/home">На главную</Link>
@@ -23,14 +13,28 @@ function Header(props) {
             <Link to="/profile">Профиль</Link>
 
             {
-                logoutButtonEnabled() && (
-                <Button variant="raised" color="primary" onClick={onLogoutButtonClick}>
-                    Выйти
-                </Button>
+                isLoggedIn && (
+                    <Button variant="raised" color="primary" onClick={onLogoutButtonClick}>
+                        Выйти
+                    </Button>
                 )
             }
         </nav>
     );
 }
 
-export default Header;
+
+const mapStateToProps = (state) => { return { isLoggedIn: state.isLoggedIn }};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogoutButtonClick: () => {
+            dispatch(userLogOut());
+        }
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header);
