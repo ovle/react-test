@@ -1,7 +1,7 @@
 
 export const ErrorMessages = {
     LOGIN_FAILED: "Имя пользователя или пароль введены неверно"
-}
+};
 
 export const USER_AUTHORIZED_KEY = "USER_AUTHORIZED_KEY";
 

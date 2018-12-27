@@ -4,12 +4,19 @@ import {createStore} from "redux";
 import appReducers from "./app/state/reducers";
 
 const initialState = {
-    isLoggedIn: ls.get(USER_AUTHORIZED_KEY)
+    isLoggedIn: ls.get(USER_AUTHORIZED_KEY) || false,
+    test: 42
 };
-export const store = createStore(appReducers, initialState);
+
+export const store = createStore(appReducers, initialState
+    , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const unsubscribe = store.subscribe(() => {
     //todo how to filter action here?
-    ls.set(USER_AUTHORIZED_KEY, store.isLoggedIn)
+    let loggedIn = store.getState().isLoggedIn;
+    console.log("event, store.isLoggedIn=" + loggedIn);
+
+    ls.set(USER_AUTHORIZED_KEY, loggedIn);
 });
-unsubscribe();
+// unsubscribe();

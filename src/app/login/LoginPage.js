@@ -18,14 +18,17 @@ class LoginPage extends Component {
         };
     }
 
-
     _onLoginButtonClick = () => {
         //todo api request...
-        const isValidCredentials = this.state.login == CORRECT_LOGIN && this.state.password == CORRECT_PASSWORD;
+        const isValidCredentials = this.state.login === CORRECT_LOGIN && this.state.password === CORRECT_PASSWORD;
         this.setState({ hasCredentialsError: !isValidCredentials });
 
         if (isValidCredentials) {
             this.props.onLoginButtonClick();
+
+            //todo imperative routing seems to be the hack
+            // this.props.history.push("/profile");
+            // browserHistory.push('/registrationStep2')
         }
     };
 
@@ -41,17 +44,21 @@ class LoginPage extends Component {
         return this.state.login.length > 0 && this.state.password.length > 0;
     };
 
-    render = () =>
-        <div>
+    render() {
+        return <div>
             <h2 className="form-signin-heading">Форма авторизации</h2>
-            <TextField className="form-control" type="text" placeholder="Логин" value={this.state.login} onChange={this.onLoginChange}/>
-            <TextField className="form-control" type="password" placeholder="Пароль" value={this.state.password} onChange={this.onPasswordChange}/>
-            { this.state.hasCredentialsError && <div>{ErrorMessages.LOGIN_FAILED}</div> }
+            <TextField className="form-control" type="text" placeholder="Логин" value={this.state.login}
+                       onChange={this.onLoginChange}/>
+            <TextField className="form-control" type="password" placeholder="Пароль" value={this.state.password}
+                       onChange={this.onPasswordChange}/>
+            {this.state.hasCredentialsError && <div>{ErrorMessages.LOGIN_FAILED}</div>}
 
-            <Button variant="raised" color="primary" onClick={this._onLoginButtonClick} disabled={ !this.loginButtonEnabled() }>
+            <Button variant="raised" color="primary" onClick={this._onLoginButtonClick}
+                    disabled={!this.loginButtonEnabled()}>
                 Войти
             </Button>
         </div>
+    }
 }
 
 
