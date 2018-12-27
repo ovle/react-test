@@ -25,7 +25,9 @@ const App = ({ isLoggedIn }) => {
                             <Route path="/profile" render={() => (
                                 isLoggedIn ? <ProfilePage/> : <Redirect to="/login"/>
                             )}/>
-                            <Route path="/login" component={LoginPage}/>
+                            <Route path="/login" render={() => (
+                                isLoggedIn ? <Redirect to="/profile"/> : <LoginPage/>
+                            )}/>
                         </Switch>
                     </div>
                 </ConnectedRouter >
