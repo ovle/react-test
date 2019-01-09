@@ -62,8 +62,7 @@ class LoginPage extends Component<Props, State> {
                        onChange={this.onPasswordChange}/>
             {this.state.hasCredentialsError && <div>{ErrorMessages.LOGIN_FAILED}</div>}
 
-            <Button variant="raised" color="primary" onClick={this._onLoginButtonClick}
-                    disabled={!this.loginButtonEnabled()}>
+            <Button variant="raised" color="primary" onClick={this._onLoginButtonClick} disabled={!this.loginButtonEnabled()}>
                 Войти
             </Button>
         </div>

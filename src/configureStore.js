@@ -2,27 +2,28 @@ import ls from "local-storage";
 import {USER_AUTHORIZED_KEY} from "./utils/constants";
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {connectRouter, routerMiddleware} from "connected-react-router";
+import thunk from 'redux-thunk';
 import isLoggedInReducer from "./app/state/reducers/isLoggedInReducer";
 import {createBrowserHistory} from "history";
+import newsReducer from "./app/state/reducers/newsReducer";
 
 
 export const history = createBrowserHistory();
 
 const appReducers = combineReducers({
     router: connectRouter(history),
-    isLoggedIn: isLoggedInReducer
+    isLoggedIn: isLoggedInReducer,
+    newsData: newsReducer
 });
 
-const initialState = {
-    isLoggedIn: ls.get(USER_AUTHORIZED_KEY) || false
-};
 
 export const store = createStore(
     appReducers,
-    initialState,
+    {},
     compose(
         applyMiddleware(
-            routerMiddleware(history)
+            routerMiddleware(history),
+            thunk
         ),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )

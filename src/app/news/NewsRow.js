@@ -6,10 +6,10 @@ import type {NewsItem} from "../state/news";
 
 type Props = NewsItem;
 
-const NewsRow = ({title, content}: Props) => (
+const NewsRow = ({title, text}: Props) => (
     <li>
         <div>{title}</div>
-        <div>{content}</div>
+        <div>{text}</div>
     </li>
 );
 

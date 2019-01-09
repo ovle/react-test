@@ -2,32 +2,39 @@
 
 import React, {Component} from "react";
 import NewsPage from "./NewsPage";
-import type {NewsItem} from "../state/news";
-import {newsData} from "../state/news";
+import type {News} from "../state/news";
+import connect from "react-redux/es/connect/connect";
+import lifecycle from 'react-pure-lifecycle';
+import {fetchNewsData} from "../state/news";
 
 
-type Props = {}
+type Props = News
 
-type State = {
-    news: Array<NewsItem>
-}
+const NewsPageContainer = (newsData: Props) =>
+    (
+        <NewsPage newsData={newsData}/>
+    );
 
 
-class NewsPageContainer extends Component<Props, State> {
+const componentDidMount = (props) => {
+    props.loadNews();
+};
 
-    constructor(props: Props) {
-        super(props);
+const mapStateToProps = (state) => {
+    let newsData = state.newsData;
+    return {isLoading: newsData.isLoading, hasError: newsData.hasError, items: newsData.items}
+};
 
-        this.state = {
-            news: newsData
-        };
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadNews: () => {
+            dispatch(fetchNewsData());
+        }
     }
+};
 
-    render() {
-        return (
-            <NewsPage news={this.state.news} />
-        );
-    }
-}
 
-export default NewsPageContainer;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(lifecycle({componentDidMount})(NewsPageContainer));

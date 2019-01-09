@@ -2,23 +2,26 @@
 
 import React from "react";
 import NewsRow from "./NewsRow";
-import type {NewsItem} from "../state/news";
+import type {News} from "../state/news";
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 
 
-type Props = {
-    news: Array<NewsItem>
-};
+type Props =  { newsData: News }
 
-const NewsPage = ({news}: Props) => (
+
+const NewsPage = ({newsData}: Props) => (
     <div>
-        <div>news</div>
-        <ul>
+        <div>News:</div>
         {
-            news.map((item, index) => (
-                <NewsRow key={index} {...item}/>
-            ))
+            newsData.isLoading ? <CircularProgress/> :
+                <ul>
+                    {
+                        newsData.items.map((item, index) => (
+                            <NewsRow key={index} {...item}/>
+                        ))
+                    }
+                </ul>
         }
-        </ul>
     </div>
 );
 
