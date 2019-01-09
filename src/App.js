@@ -4,8 +4,8 @@ import './App.css';
 import {Redirect, Route, Switch } from 'react-router';
 import {history} from './configureStore';
 
-import HomePage from "./app/home/HomePage";
-import NewsPage from "./app/news/NewsPage";
+import HomeComponent from "./app/home/HomePage";
+import NewsPageContainer from "./app/news/NewsPageContainer";
 import ProfilePage from "./app/profile/ProfilePage";
 import LoginPage from "./app/login/LoginPage";
 import Header from "./app/Header";
@@ -20,8 +20,8 @@ const App = ({ isLoggedIn }) => {
                     <div>
                         <Header/>
                         <Switch>
-                            <Route path="/home" component={HomePage}/>
-                            <Route path="/news" component={NewsPage}/>
+                            <Route path="/" exact component={HomeComponent}/>
+                            <Route path="/news" component={NewsPageContainer}/>
                             <Route path="/profile" render={() => (
                                 isLoggedIn ? <ProfilePage/> : <Redirect to="/login"/>
                             )}/>

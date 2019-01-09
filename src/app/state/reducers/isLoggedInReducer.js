@@ -1,9 +1,8 @@
 import {USER_LOG_IN, USER_LOG_OUT} from "../actions/actions";
+import type {UserAction} from "../actions/actions";
 
 
-const isLoggedInReducer = (state = null, action) => {
-    console.log(`isLoggedInReducer: ${action.type}, `, state);
-
+const isLoggedInReducer = (state = null, action: UserAction) => {
     switch (action.type) {
         case USER_LOG_IN: return true;
         case USER_LOG_OUT: return false;

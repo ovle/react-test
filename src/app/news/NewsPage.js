@@ -1,28 +1,25 @@
-import React, {Component} from "react";
-import NewsComponent from "./NewsComponent";
+// @flow
+
+import React from "react";
+import NewsRow from "./NewsRow";
+import type {NewsItem} from "../state/news";
 
 
-const newsData = [
-    { title: "Новость 1", content: "вот" },
-    { title: "Новость 2", content: "рарипааотаовтвоащал алалал влвлышл влащащ вшвшвщшащ аащщаашащшвш авлшашаоовашща" },
-    { title: "Новость 3", content: "Информацию об авторизации пользователя можно хранить в localStorage, простым параметром true/false." }
-];
+type Props = {
+    news: Array<NewsItem>
+};
 
-
-class NewsPage extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            news: newsData
-        };
-    }
-
-    render() {
-        return (
-            <NewsComponent news={this.state.news} />
-        );
-    }
-}
+const NewsPage = ({news}: Props) => (
+    <div>
+        <div>news</div>
+        <ul>
+        {
+            news.map((item, index) => (
+                <NewsRow key={index} {...item}/>
+            ))
+        }
+        </ul>
+    </div>
+);
 
 export default NewsPage;

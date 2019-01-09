@@ -1,3 +1,5 @@
+// @flow
+
 import React, {Component} from "react";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField/TextField";
@@ -6,7 +8,18 @@ import {userLogIn} from "../state/actions/actions";
 import connect from "react-redux/es/connect/connect";
 
 
-class LoginPage extends Component {
+type Props = {
+    onLoginButtonClick: () => void
+};
+
+type State = {
+    login: string,
+    password: string,
+    hasCredentialsError: boolean
+};
+
+
+class LoginPage extends Component<Props, State> {
 
     constructor(props) {
         super(props);
@@ -42,7 +55,7 @@ class LoginPage extends Component {
 
     render() {
         return <div>
-            <h2 className="form-signin-heading">Форма авторизации</h2>
+            <h2>Форма авторизации</h2>
             <TextField className="form-control" type="text" placeholder="Логин" value={this.state.login}
                        onChange={this.onLoginChange}/>
             <TextField className="form-control" type="password" placeholder="Пароль" value={this.state.password}
@@ -57,9 +70,6 @@ class LoginPage extends Component {
     }
 }
 
-
-const mapStateToProps = (state) => { return { isLoggedIn: state.isLoggedIn }};
-
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoginButtonClick: () => {
@@ -69,6 +79,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(LoginPage);

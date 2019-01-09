@@ -1,18 +1,20 @@
+// @flow
 
 export const USER_LOG_IN = 'USER_LOG_IN';
 export const USER_LOG_OUT = 'USER_LOG_OUT';
 
 
-export const userLogIn = () => {
-    return {
-        type: USER_LOG_IN,
-        text: 'Пользователь вошёл в Систему'
-    }
-};
+export type UserAction = {
+    type: string,
+    text: string
+}
 
-export const userLogOut = () => {
-    return {
-        type: USER_LOG_OUT,
-        text: 'Пользователь вышел из Системы'
-    }
-};
+export const userLogIn: () => UserAction = () => ({
+    type: USER_LOG_IN,
+    text: 'Пользователь вошёл в Систему'
+});
+
+export const userLogOut: () => UserAction = () => ({
+    type: USER_LOG_OUT,
+    text: 'Пользователь вышел из Системы'
+});
