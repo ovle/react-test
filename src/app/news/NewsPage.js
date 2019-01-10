@@ -2,11 +2,11 @@
 
 import React from "react";
 import NewsRow from "./NewsRow";
-import type {News} from "../state/news";
+import type {NewsData} from "../state/model/news";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 
 
-type Props =  { newsData: News }
+type Props =  { newsData: NewsData }
 
 
 const NewsPage = ({newsData}: Props) => (

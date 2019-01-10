@@ -1,5 +1,6 @@
+// @flow
 
-export function fetchData(url, success, dataLoaded, error) {
+export function fetchData(url: string, success: () => void, dataLoaded: (data: any) => void, error: () => void) {
     fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -13,6 +14,6 @@ export function fetchData(url, success, dataLoaded, error) {
             return response;
         })
         .then((response) => response.json())
-        .then((items) =>  { if (dataLoaded) { dataLoaded(items); }})
+        .then((data) =>  { if (dataLoaded) { dataLoaded(data); }})
         .catch(() => { if (error) { error(); }});
 }

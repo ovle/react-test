@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import isLoggedInReducer from "./app/state/reducers/isLoggedInReducer";
 import {createBrowserHistory} from "history";
 import newsReducer from "./app/state/reducers/newsReducer";
+import profileReducer from "./app/state/reducers/profileReducer";
 
 
 export const history = createBrowserHistory();
@@ -13,7 +14,8 @@ export const history = createBrowserHistory();
 const appReducers = combineReducers({
     router: connectRouter(history),
     isLoggedIn: isLoggedInReducer,
-    newsData: newsReducer
+    newsData: newsReducer,
+    profileData: profileReducer
 });
 
 

@@ -1,14 +1,14 @@
 // @flow
 
-import React, {Component} from "react";
+import React from "react";
 import NewsPage from "./NewsPage";
-import type {News} from "../state/news";
+import type {NewsData} from "../state/model/news";
 import connect from "react-redux/es/connect/connect";
 import lifecycle from 'react-pure-lifecycle';
-import {fetchNewsData} from "../state/news";
+import {fetchNewsData} from "../state/model/news";
 
 
-type Props = News
+type Props = NewsData
 
 const NewsPageContainer = (newsData: Props) =>
     (
@@ -17,7 +17,7 @@ const NewsPageContainer = (newsData: Props) =>
 
 
 const componentDidMount = (props) => {
-    props.loadNews();
+    props.loadData();
 };
 
 const mapStateToProps = (state) => {
@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadNews: () => {
+        loadData: () => {
             dispatch(fetchNewsData());
         }
     }

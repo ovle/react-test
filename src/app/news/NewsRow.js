@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import type {NewsItem} from "../state/news";
+import type {NewsItem} from "../state/model/news";
 
 
 type Props = NewsItem;

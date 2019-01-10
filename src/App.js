@@ -6,11 +6,11 @@ import {history} from './configureStore';
 
 import HomeComponent from "./app/home/HomePage";
 import NewsPageContainer from "./app/news/NewsPageContainer";
-import ProfilePage from "./app/profile/ProfilePage";
 import LoginPage from "./app/login/LoginPage";
 import Header from "./app/Header";
 import connect from "react-redux/es/connect/connect";
 import { ConnectedRouter } from 'connected-react-router'
+import ProfilePageContainer from "./app/profile/ProfilePageContainer";
 
 
 const App = ({ isLoggedIn }) => {
@@ -23,7 +23,7 @@ const App = ({ isLoggedIn }) => {
                             <Route path="/" exact component={HomeComponent}/>
                             <Route path="/news" component={NewsPageContainer}/>
                             <Route path="/profile" render={() => (
-                                isLoggedIn ? <ProfilePage/> : <Redirect to="/login"/>
+                                isLoggedIn ? <ProfilePageContainer/> : <Redirect to="/login"/>
                             )}/>
                             <Route path="/login" render={() => (
                                 isLoggedIn ? <Redirect to="/profile"/> : <LoginPage/>
